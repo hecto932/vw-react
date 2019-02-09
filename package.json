@@ -1,0 +1,19 @@
+{
+  "name": "vw-react",
+  "version": "1.0.0",
+  "description": "A little interview test on reactjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hecto932/vw-react.git"
+  },
+  "author": "Hector Flores <hecto932@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hecto932/vw-react/issues"
+  },
+  "homepage": "https://github.com/hecto932/vw-react#readme"
+}
