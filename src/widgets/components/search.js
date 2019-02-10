@@ -10,16 +10,20 @@ const Search = (props) => (
     <div className="d-inline-flex p-2">
       <form className="form-inline search-form">
         <div className="input-group">
-          <input onChange={props.handleKeyPress} type="text" className="form-control" id="validationTooltipUsername" placeholder="Search for..." autoComplete="off" required />
+          <input onChange={props.handleKeyPress} type="text" className="form-control" id="inputText" placeholder="Search for..." autoComplete="off" required />
           <div className="input-group-prepend">
-            <button className="input-group-text search-button" id="validationTooltipUsernamePrepend"><i className="fas fa-search"></i></button>
+            <button className="input-group-text search-button" id="inputTextPrepend"><i className="fas fa-search"></i></button>
           </div>
         </div>
         { props.thereIsResult && 
           <ul className="list-group search-result">
             {
               props.results.map(item => {
-                return <li key={item.uuid} {...item} className="list-group-item">{item.suggestion}</li>
+                return (
+                <li key={item.uuid} {...item} onClick={() => props.handleJobClick(item.uuid)} className="list-group-item">
+                  {item.suggestion}
+                </li>
+                )
               })
             }
           </ul>

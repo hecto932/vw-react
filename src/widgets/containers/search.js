@@ -4,15 +4,22 @@ import Search from '../components/search';
 class SearchContainer extends Component {
   state = {
     appName: 'Start Bootstrap',
-    value: '',
     thereIsResult: false,
-    results: []
+    results: [],
+    job: null,
   }
-  handleFocusOut = (event) => {
-    this.setState({
-      results: [],
-      thereIsResult: false
-    })
+  handleJobClick = (uuid) => {
+    const inputText = document.getElementById('inputText')
+    fetch(`http://api.dataatwork.org/v1/jobs/${uuid}/related_skills`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          thereIsResult: false,
+          job: data,
+        });
+        console.log(data)
+        inputText.value = data.job_title
+      });
   }
   handleKeyPress = (event)  => {
     const inputText = event.target.value;
@@ -25,28 +32,29 @@ class SearchContainer extends Component {
       })
     } else {
       fetch(`http://api.dataatwork.org/v1/jobs/autocomplete?begins_with=${inputText}`)
-      .then(data => data.json())
-      .then(data2 => {
-        data2.length = 10;
-        if (data2.length) {
-          this.setState({
-            thereIsResult: true,
-            results: data2
-          })
-        }
-        data2.forEach(e => {
-          console.log(e);
-        })
-      });
+        .then(response => response.json())
+        .then(data => {
+          console.log(`Total results: ${data.length}`)
+          data.length = 8;
+          console.log(`Showing: ${data.length}`)
+          if (data.length) {
+            this.setState({
+              thereIsResult: true,
+              results: data
+            })
+          }
+        });
     }
   }
   render () {
     return (
       <Search 
         appName={this.state.appName}
+        inputValue={this.state.value}
         handleKeyPress={this.handleKeyPress}
         thereIsResult={this.state.thereIsResult}
         results={this.state.results}
+        handleJobClick={this.handleJobClick}
       />
     )
   }
