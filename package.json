@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/hecto932/vw-react#readme",
   "dependencies": {
+    "debug": "^4.1.1",
     "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "request-promise": "^4.2.2"
+    "react-dom": "^16.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

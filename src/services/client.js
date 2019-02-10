@@ -1,14 +1,22 @@
-import request from 'request-promise';
+const debug = require('debug');
 
-class ApiCient {
+class Client {
   constructor (options) {
-    super();
-
     this.options = options || {
-      enpoint: 'https://api.dataatwork.org'
+      enpoint: 'http://api.dataatwork.org'
     }
   }
-  getAll() {
-    return request('')
+
+  contains (str) {
+    return fetch('`${this.options.endpoint}/v1/jobs/autocomplete?contains=${str}`');
+    // const options = {
+    //   uri: `${this.options.endpoint}/v1/jobs/autocomplete?contains=${str}`,
+    //   method: 'GET',
+    //   json: true,
+    // }
+
+    // return Promise.resolve(request(options))
   }
 }
+
+export default Client
