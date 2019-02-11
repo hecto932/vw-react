@@ -65,5 +65,13 @@ $transition-time: 1s;
   .search-text:focus {
     width: $input-width * 2;
   }
+
+  .nav-icons {
+    color: white;
+    font-size: 1em;
+    margin: 0px 0.2em;
+    color: #a1a3a6;
+    text-align: center;
+  }
 }
 
