@@ -72,11 +72,17 @@ $query-max-width: 570px;
 }
 
 /* Landscape phones and down */
-@media (max-width: 525px) {
+// @media (min-width: 526px) and (max-width: 630px) {
+//   .notifications {
+//     font-size: 0.9em;
+//   }
+// }
+
+/* Landscape phones and down */
+@media (max-width: 638px) {
    .search-text {
     width: 200px;
   }
-
 
   .nav-icons {
     font-size: 1.5em;
