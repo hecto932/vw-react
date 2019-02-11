@@ -1,34 +1,32 @@
 import React, { Component } from 'react';
-import Search from '../components/search';
-import ApiClient from '../../services/client';
+import { connect } from 'react-redux';
 import xss from 'xss';
 import csrf from 'csrf';
+import Search from '../components/search';
+import ApiClient from '../../services/client';
 
 const Tokens = new csrf();
 
 class SearchContainer extends Component {
-  state = {
-    appName: 'Start Bootstrap',
-    thereIsResult: false,
-    results: [],
-    job: null,
-    secret: Tokens.secretSync(),
-  }
   handleOnSubmit = (event) => {
     event.preventDefault();
 
-    const secret = this.state.secret;
+    const secret = this.props.secret;
     const token = document.getElementById('csrfToken').value
 
     if (!Tokens.verify(secret, token)) {
+      console.log('Valid!')
       const Client = new ApiClient();
       const inputText = document.getElementById('inputText').value
       console.log(inputText)
 
       if (event.target.value == '') {
-        this.setState({
-          thereIsResult: false,
-          results: []
+        this.props.dispatch({
+          type: 'AUTOCOMPLETE_LIST',
+          payload: {
+            thereIsResult: false,
+            results: []
+          }
         })
       } else {
         const xssInput = xss(inputText);
@@ -37,17 +35,20 @@ class SearchContainer extends Component {
             // console.log(data);
             if (!data.error && data.length) {
               data.length = 8;
-              this.setState({
-                thereIsResult: true,
-                results: data
+              this.props.dispatch({
+                type: 'AUTOCOMPLETE_LIST',
+                payload: {
+                  thereIsResult: true,
+                  results: data,
+                }
               })
             }
           })
           .catch(err => console.log(err))
       }
+    } else {
+      console.log('Invalid request...')
     }
-
-    
   }
   handleJobClick = (uuid) => {
     const inputText = document.getElementById('inputText')
@@ -55,12 +56,15 @@ class SearchContainer extends Component {
     
     Client.jobSkills(uuid)
       .then(data => {
-        this.setState({
-          thereIsResult: false,
-          job: data,
-        });
-        console.log(data)
+        console.log(data);
         inputText.value = data.job_title
+        this.props.dispatch({
+          type: 'SAVE_JOB',
+          payload: {
+            thereIsResult: false,
+            job:data,
+          }
+        })
       })
       .catch(err => console.log(err))
   }
@@ -70,9 +74,12 @@ class SearchContainer extends Component {
     console.log(inputText)
 
     if (event.target.value == '') {
-      this.setState({
-        thereIsResult: false,
-        results: []
+      this.props.dispatch({
+        type: 'AUTOCOMPLETE_LIST',
+        payload: {
+          thereIsResult: false,
+          results: []
+        }
       })
     } else {
       // Do the request when there are more than 2 characters
@@ -83,17 +90,23 @@ class SearchContainer extends Component {
             // console.log(data);
             if (!data.error && data.length) {
               data.length = 8;
-              this.setState({
-                thereIsResult: true,
-                results: data
+              this.props.dispatch({
+                type: 'AUTOCOMPLETE_LIST',
+                payload: {
+                  thereIsResult: true,
+                  results:data,
+                }
               })
             }
           })
           .catch(err => {
             console.log(err)
-            this.setState({
-              thereIsResult: false,
-              results: []
+            this.props.dispatch({
+              type: 'AUTOCOMPLETE_LIST',
+              payload: {
+                thereIsResult: false,
+                results: []
+              }
             })
           })
       }
@@ -102,11 +115,10 @@ class SearchContainer extends Component {
   render () {
     return (
       <Search 
-        appName={this.state.appName}
-        inputValue={this.state.value}
+        appName={this.props.appName}
         handleKeyPress={this.handleKeyPress}
-        thereIsResult={this.state.thereIsResult}
-        results={this.state.results}
+        thereIsResult={this.props.thereIsResult}
+        results={this.props.results}
         handleJobClick={this.handleJobClick}
         handleOnSubmit={this.handleOnSubmit}
         csrfToken={''}
@@ -115,8 +127,12 @@ class SearchContainer extends Component {
   }
 
   componentDidMount() {
-    document.getElementById('csrfToken').value = Tokens.create(this.state.secret);
+    document.getElementById('csrfToken').value = Tokens.create(this.props.secret);
   }
 }
 
-export default SearchContainer;
+function mapStateToProps(state, props) {
+  return { ...state };
+}
+
+export default connect(mapStateToProps)(SearchContainer);

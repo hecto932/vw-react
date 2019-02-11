@@ -1,6 +1,7 @@
 $color-blue: #0f7aff;
 $input-width: 227px;
 $transition-min-width: 880px;
+$transition-time: 1s;
 
 .display-inline {
   display: inline;
@@ -22,9 +23,9 @@ $transition-min-width: 880px;
   display: inline;
   border-radius: 7px 0px 0px 7px;
   margin-right: 0 !important;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all $transition-time ease;
+  -moz-transition: all $transition-time ease;
+  transition: all $transition-time ease;
 }
 
 .search-button {
@@ -55,9 +56,9 @@ $transition-min-width: 880px;
   display: inline;
   border-radius: 7px 0px 0px 7px;
   width: $input-width;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  transition: all 1s ease;
+  -webkit-transition: all $transition-time ease;
+  -moz-transition: all $transition-time ease;
+  transition: all $transition-time ease;
 }
 
 @media screen and (min-width: $transition-min-width) {
