@@ -17,7 +17,9 @@ module.exports = (env) => {
   }
 
   return {
-
+    performance: {
+      maxEntrypointSize: 400000000
+    },
     entry: {
       'home': path.resolve(__dirname, 'src/entries/home.js'),
     },
