@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/hecto932/vw-react#readme",
   "dependencies": {
+    "csrf": "^3.0.6",
     "debug": "^4.1.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",

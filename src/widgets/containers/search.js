@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Search from '../components/search';
 import ApiClient from '../../services/client';
 import xss from 'xss';
+import csrf from 'csrf';
+
+const Tokens = new csrf();
 
 class SearchContainer extends Component {
   state = {
@@ -9,34 +12,42 @@ class SearchContainer extends Component {
     thereIsResult: false,
     results: [],
     job: null,
+    secret: Tokens.secretSync(),
   }
   handleOnSubmit = (event) => {
     event.preventDefault();
 
-    const Client = new ApiClient();
-    const inputText = document.getElementById('inputText').value
-    console.log(inputText)
+    const secret = this.state.secret;
+    const token = document.getElementById('csrfToken').value
 
-    if (event.target.value == '') {
-      this.setState({
-        thereIsResult: false,
-        results: []
-      })
-    } else {
-      const xssInput = xss(inputText);
-      Client.jobAutoComplete(xssInput)
-        .then(data => {
-          // console.log(data);
-          if (!data.error && data.length) {
-            data.length = 8;
-            this.setState({
-              thereIsResult: true,
-              results: data
-            })
-          }
+    if (!Tokens.verify(secret, token)) {
+      const Client = new ApiClient();
+      const inputText = document.getElementById('inputText').value
+      console.log(inputText)
+
+      if (event.target.value == '') {
+        this.setState({
+          thereIsResult: false,
+          results: []
         })
-        .catch(err => console.log(err))
+      } else {
+        const xssInput = xss(inputText);
+        Client.jobAutoComplete(xssInput)
+          .then(data => {
+            // console.log(data);
+            if (!data.error && data.length) {
+              data.length = 8;
+              this.setState({
+                thereIsResult: true,
+                results: data
+              })
+            }
+          })
+          .catch(err => console.log(err))
+      }
     }
+
+    
   }
   handleJobClick = (uuid) => {
     const inputText = document.getElementById('inputText')
@@ -98,8 +109,13 @@ class SearchContainer extends Component {
         results={this.state.results}
         handleJobClick={this.handleJobClick}
         handleOnSubmit={this.handleOnSubmit}
+        csrfToken={''}
       />
     )
+  }
+
+  componentDidMount() {
+    document.getElementById('csrfToken').value = Tokens.create(this.state.secret);
   }
 }
 

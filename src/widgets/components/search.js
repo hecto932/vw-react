@@ -7,14 +7,16 @@ const Search = (props) => (
       <img className="d-inline-block align-top d-block d-sm-none" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="bootstrap-img" />
       <span className="d-none d-sm-block">{props.appName}</span>
     </a>
-    <div className="d-inline-flex p-2">
-      <form className="form-inline search-form">
-        <div className="input-group">
-          <input onChange={props.handleKeyPress} type="text" className="form-control" id="inputText" placeholder="Search for..." autoComplete="off" required />
-          <div onClick={props.handleOnSubmit} className="input-group-prepend">
+    <div className="d-inline-flex  p-6">
+      <form className="search-form">
+        <input id="csrfToken" type="hidden" value={props.csrfToken} />
+        {/* <div className="input-group"> */}
+          <input name="inputText" onChange={props.handleKeyPress} type="text" className="form-control search-text" id="inputText" placeholder="Search for..." autoComplete="off" required />
+          <button className="input-group-text search-button" id="inputTextPrepend"><i className="fas fa-search"></i></button>
+          {/* <div onClick={props.handleOnSubmit} className="input-group-prepend">
             <button className="input-group-text search-button" id="inputTextPrepend"><i className="fas fa-search"></i></button>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
         { props.thereIsResult && 
           <ul className="list-group search-result">
             {
