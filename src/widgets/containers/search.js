@@ -18,7 +18,6 @@ class SearchContainer extends Component {
       console.log('Valid!')
       const Client = new ApiClient();
       const inputText = document.getElementById('inputText').value
-      console.log(inputText)
 
       if (event.target.value == '') {
         this.props.dispatch({
@@ -71,7 +70,6 @@ class SearchContainer extends Component {
   handleKeyPress = (event)  => {
     const Client = new ApiClient();
     const inputText = event.target.value;
-    console.log(inputText)
 
     if (event.target.value == '') {
       this.props.dispatch({
