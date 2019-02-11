@@ -26,7 +26,7 @@ const Search = (props) => (
           </ul>
         }
       </form>
-      <a href="#">
+      <a className="align-middle" href="#">
         <span className="nav-icons">
           <i className="fas fa-bell"></i>
           <span className="badge badge-pill badge-danger notification-number">4</span>
