@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from '../components/search';
 import ApiClient from '../../services/client';
+import xss from 'xss';
 
 class SearchContainer extends Component {
   state = {
@@ -9,13 +10,38 @@ class SearchContainer extends Component {
     results: [],
     job: null,
   }
-  handleOnSubmit = () => {
+  handleOnSubmit = (event) => {
+    event.preventDefault();
 
+    const Client = new ApiClient();
+    const inputText = document.getElementById('inputText').value
+    console.log(inputText)
+
+    if (event.target.value == '') {
+      this.setState({
+        thereIsResult: false,
+        results: []
+      })
+    } else {
+      const xssInput = xss(inputText);
+      Client.jobAutoComplete(xssInput)
+        .then(data => {
+          // console.log(data);
+          if (!data.error && data.length) {
+            data.length = 8;
+            this.setState({
+              thereIsResult: true,
+              results: data
+            })
+          }
+        })
+        .catch(err => console.log(err))
+    }
   }
   handleJobClick = (uuid) => {
     const inputText = document.getElementById('inputText')
     const Client = new ApiClient();
-
+    
     Client.jobSkills(uuid)
       .then(data => {
         this.setState({
@@ -38,18 +64,28 @@ class SearchContainer extends Component {
         results: []
       })
     } else {
-      Client.jobAutoComplete(inputText)
-        .then(data => {
-          // console.log(data);
-          if (!data.error && data.length) {
-            data.length = 8;
+      // Do the request when there are more than 2 characters
+      if (inputText.length > 2) {
+        const xssInput = xss(inputText);
+        Client.jobAutoComplete(xssInput)
+          .then(data => {
+            // console.log(data);
+            if (!data.error && data.length) {
+              data.length = 8;
+              this.setState({
+                thereIsResult: true,
+                results: data
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err)
             this.setState({
-              thereIsResult: true,
-              results: data
+              thereIsResult: false,
+              results: []
             })
-          }
-        })
-        .catch(err => console.log(err))
+          })
+      }
     }
   }
   render () {
@@ -61,6 +97,7 @@ class SearchContainer extends Component {
         thereIsResult={this.state.thereIsResult}
         results={this.state.results}
         handleJobClick={this.handleJobClick}
+        handleOnSubmit={this.handleOnSubmit}
       />
     )
   }

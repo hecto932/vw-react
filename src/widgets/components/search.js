@@ -11,7 +11,7 @@ const Search = (props) => (
       <form className="form-inline search-form">
         <div className="input-group">
           <input onChange={props.handleKeyPress} type="text" className="form-control" id="inputText" placeholder="Search for..." autoComplete="off" required />
-          <div className="input-group-prepend">
+          <div onClick={props.handleOnSubmit} className="input-group-prepend">
             <button className="input-group-text search-button" id="inputTextPrepend"><i className="fas fa-search"></i></button>
           </div>
         </div>
