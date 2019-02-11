@@ -1,5 +1,5 @@
 import React from 'react';
-import './search.css'
+import './search.scss';
 
 const Search = (props) => (
   <nav className="navbar navbar-dark bg-dark">
@@ -20,8 +20,8 @@ const Search = (props) => (
             {
               props.results.map(item => {
                 return (
-                <li key={item.uuid} {...item} onClick={() => props.handleJobClick(item.uuid)} className="list-group-item">
-                  {item.suggestion}
+                <li key={item.uuid} {...item} className="list-group-item">
+                  <a href="#" onClick={() => props.handleJobClick(item.uuid)}>{item.suggestion}</a>
                 </li>
                 )
               })
@@ -29,18 +29,24 @@ const Search = (props) => (
           </ul>
         }
       </form>
-      <span className="nav-icons">
-        <i className="fas fa-bell"></i>
-        <span className="badge badge-pill badge-danger notification-number">4</span>
-      </span>
-      <span className="nav-icons">
-        <i className="fas fa-envelope"></i>
-        <span className="badge badge-pill badge-danger notification-number">4</span>
-      </span>
-      <span className="nav-icons">
-        <i className="fas fa-user-circle"></i>
-        <span className="badge badge-pill badge-danger notification-number">4</span>
-      </span>
+      <a href="#">
+        <span className="nav-icons">
+          <i className="fas fa-bell"></i>
+          <span className="badge badge-pill badge-danger notification-number">4</span>
+        </span>
+      </a>
+      <a href="#">
+        <span className="nav-icons">
+          <i className="fas fa-envelope"></i>
+          <span className="badge badge-pill badge-danger notification-number">4</span>
+        </span>
+      </a>
+      <a href="#">
+        <span className="nav-icons">
+          <i className="fas fa-user-circle"></i>
+          <span className="badge badge-pill badge-danger notification-number">4</span>
+        </span>
+      </a>
     </div>
   </nav>
 );

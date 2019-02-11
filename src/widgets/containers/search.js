@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Search from '../components/search';
+import ApiClient from '../../services/client';
 
 class SearchContainer extends Component {
   state = {
@@ -8,10 +9,14 @@ class SearchContainer extends Component {
     results: [],
     job: null,
   }
+  handleOnSubmit = () => {
+
+  }
   handleJobClick = (uuid) => {
     const inputText = document.getElementById('inputText')
-    fetch(`http://api.dataatwork.org/v1/jobs/${uuid}/related_skills`)
-      .then(response => response.json())
+    const Client = new ApiClient();
+
+    Client.jobSkills(uuid)
       .then(data => {
         this.setState({
           thereIsResult: false,
@@ -19,9 +24,11 @@ class SearchContainer extends Component {
         });
         console.log(data)
         inputText.value = data.job_title
-      });
+      })
+      .catch(err => console.log(err))
   }
   handleKeyPress = (event)  => {
+    const Client = new ApiClient();
     const inputText = event.target.value;
     console.log(inputText)
 
@@ -31,19 +38,18 @@ class SearchContainer extends Component {
         results: []
       })
     } else {
-      fetch(`http://api.dataatwork.org/v1/jobs/autocomplete?begins_with=${inputText}`)
-        .then(response => response.json())
+      Client.jobAutoComplete(inputText)
         .then(data => {
-          console.log(`Total results: ${data.length}`)
-          data.length = 8;
-          console.log(`Showing: ${data.length}`)
-          if (data.length) {
+          // console.log(data);
+          if (!data.error && data.length) {
+            data.length = 8;
             this.setState({
               thereIsResult: true,
               results: data
             })
           }
-        });
+        })
+        .catch(err => console.log(err))
     }
   }
   render () {

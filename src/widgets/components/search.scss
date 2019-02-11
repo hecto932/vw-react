@@ -1,3 +1,5 @@
+$color-blue: #0f7aff;
+
 .nav-icons {
   color: white;
   font-size: 1.5em;
@@ -15,10 +17,10 @@
 }
 
 .search-button {
-  background-color: #0f7aff;
+  background-color: $color-blue;
   color: white;
   border-radius: 0px 7px 7px 0px !important;
-  border-color: #0f7aff;
+  border-color: $color-blue;
 }
 
 .notification-number {

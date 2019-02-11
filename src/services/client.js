@@ -1,21 +1,46 @@
 const debug = require('debug');
 
 class Client {
-  constructor (options) {
-    this.options = options || {
-      enpoint: 'http://api.dataatwork.org'
-    }
+  constructor () {
+    this.endpoint = 'http://api.dataatwork.org/v1';
   }
 
-  contains (str) {
-    return fetch('`${this.options.endpoint}/v1/jobs/autocomplete?contains=${str}`');
-    // const options = {
-    //   uri: `${this.options.endpoint}/v1/jobs/autocomplete?contains=${str}`,
-    //   method: 'GET',
-    //   json: true,
-    // }
+  jobAutoComplete (str) {
+    console.log('function: jobAutoComplete');
 
-    // return Promise.resolve(request(options))
+    return fetch(`${this.endpoint}/jobs/autocomplete?begins_with=${str}`)
+      .then(response => {
+        // console.log(response);
+        if (response.status >= 200 && response.status < 300) {
+          return response.json()
+        } else {
+          return response.json()
+            .then(err => Promise.reject(err.error))
+        }
+      })
+      .then(data => {
+        return Promise.resolve(data);
+      })
+      .catch(err => Promise.reject(err));
+  }
+
+  jobSkills(uuid) {
+    console.log('function: jobSkills')
+
+    return fetch(`${this.endpoint}/jobs/${uuid}/related_skills`)
+      .then(response => {
+        console.log(response);
+        if (response.status >= 200 && response.status < 300) {
+          return response.json()
+        } else {
+          return response.json()
+            .then(err => Promise.reject(err.error))
+        }
+      })
+      .then(data => {
+        return Promise.resolve(data);
+      })
+      .catch(err => Promise.reject(err));
   }
 }
 

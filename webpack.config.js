@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = (env) => {
   const plugins = [
-    new ExtractTextPlugin('css/[name].[hash].css')
+    new ExtractTextPlugin('css/[name].css')
   ]
 
   if (env.NODE_ENV === 'production') {
@@ -58,13 +58,19 @@ module.exports = (env) => {
           })
         },
         {
+          test: /\.scss$/,
+          use: ExtractTextPlugin.extract({
+            use: ['css-loader', 'sass-loader']
+          })
+        },
+        {
           test: /\.(jpg|png|gif|svg)$/,
           use: {
             loader: 'url-loader',
             options: {
               limit: 10000,
               fallback: 'file-loader',
-              name: 'images/[name].[hash].[ext]',
+              name: 'images/[name].[ext]',
             }
           }
         },
