@@ -2,7 +2,7 @@ const debug = require('debug');
 
 class Client {
   constructor () {
-    this.endpoint = 'http://api.dataatwork.org/v1';
+    this.endpoint = 'https://api.dataatwork.org/v1';
   }
 
   jobAutoComplete (str) {

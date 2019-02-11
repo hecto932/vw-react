@@ -1,11 +1,11 @@
-# vk-react
+# vw-react
 
-vk-react is a powerful navbar allows to do request to API job list and return the coincidences from the string wrote.
+vw-react is a powerful navbar allows to do request to API job list and return the coincidences from the string wrote.
 
 ## How to use
 
 1. Clone this reponsitory inside one folder.
-2. cd `vk-react` folder and make `npm install`. This will install all the project dependecies.
+2. cd `vw-react` folder and make `npm install`. This will install all the project dependecies.
 3. After install all the dependencies you can run some commands:
   - `npm run build:dev`: This command run a webpack-dev-server in `http://localhost:9000/` you can make changes on the code and it will refresh automatically.
   - `npm run build:prod`: This command will create all de js and css bundles. If you want to run the bundles you must execute `index.html` file locally.
@@ -13,7 +13,7 @@ vk-react is a powerful navbar allows to do request to API job list and return th
 
 ## DEMO
 
-[Click here to test](https://hecto932.github.io/vk-react)
+[Click here to test](https://hecto932.github.io/vw-react)
 
 ## Liscense 
 
