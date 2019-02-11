@@ -7,6 +7,7 @@ const Search = (props) => (
       <img className="d-inline-block align-top d-block d-sm-none" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="bootstrap-img" />
       <span className="d-none d-sm-block">{props.appName}</span>
     </a>
+ 
     <div className="d-inline-flex p-2">
       <form className="search-form">
         <input id="csrfToken" type="hidden" value={props.csrfToken} />
@@ -46,6 +47,11 @@ const Search = (props) => (
             <i className="fas fa-user-circle"></i>
             <span className="badge badge-pill badge-danger notification-number">4</span>
           </span>
+        </a>
+      </div>
+      <div className="notifications-mobile">
+        <a href="#">
+          <i class="fas fa-ellipsis-v"></i>
         </a>
       </div>
     </div>

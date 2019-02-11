@@ -4,6 +4,10 @@ $transition-min-width: 880px;
 $transition-time: 1s;
 $query-max-width: 570px;
 
+.notifications-mobile {
+  display: none;
+}
+
 .display-inline {
   display: inline;
 }
@@ -83,6 +87,13 @@ $query-max-width: 570px;
 
   .notifications {
     display: none;
+  }
+
+  .notifications-mobile {
+    display: inline;
+    color: #a1a3a6;
+    font-size: 1em;
+    margin-top: 0.5em;
   }
 }
 
