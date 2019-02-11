@@ -9,9 +9,10 @@ const Job = (props) => (
           <section className="Job">
             <div className="card">
               <div className="card-header">
-              <a href="#" class="badge badge-success">{props.info.job_uuid}</a> - {props.info.job_title}
+                <a href="#" class="badge badge-success">{props.info.job_uuid}</a> - <a href="#" class="badge badge-info">{props.info.job_title}</a>
               </div>
               <div className="card-body">
+                <h2 className="title">SKills</h2>
                 <ul>
                 {
                   props.info.skills.map(item => {
