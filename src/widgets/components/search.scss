@@ -63,7 +63,7 @@ $transition-time: 1s;
 
 @media screen and (min-width: $transition-min-width) {
   .search-text:focus {
-    width: $input-width * 2;
+    width: 1$input-width - 100px;
   }
 
   .nav-icons {
@@ -74,8 +74,22 @@ $transition-time: 1s;
     text-align: center;
   }
 
-  .align-middle {
-    margin: 0.5em 0 0 0;
+  .align-vertical-icons {
+    margin: 0.5em 0 0 0 !important;
+  }
+}
+
+@media screen and (max-width: $transition-min-width + 1) {
+  .nav-icons {
+    color: white;
+    font-size: 0.8em;
+    margin: 0 0.1em;
+    color: #a1a3a6;
+    text-align: center;
+  }
+
+  .align-vertical-icons {
+    margin: 0.5em 0 0 0 !important;
   }
 }
 
