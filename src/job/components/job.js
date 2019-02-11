@@ -12,7 +12,7 @@ const Job = (props) => (
                 <a href="#" class="badge badge-success">{props.info.job_uuid}</a> - <a href="#" class="badge badge-primary">{props.info.job_title}</a>
               </div>
               <div className="card-body">
-                <h2 className="title">SKills</h2>
+                <h2 className="title">Skills</h2>
                 <ul>
                 {
                   props.info.skills.map(item => {
