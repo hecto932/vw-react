@@ -13,7 +13,7 @@ const initialState = {
   appName: 'Start Bootstrap',
   thereIsResult: false,
   results: [],
-  job: {},
+  job: null,
   secret: Tokens.secretSync(),
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HomeLayout from '../components/home-layout';
 import Search from '../../widgets/containers/search';
+import Job from '../../job/containers/job';
 
 
 class Home extends Component {
@@ -9,6 +10,7 @@ class Home extends Component {
     return (
       <HomeLayout>
         <Search />
+        <Job />
       </HomeLayout>
     )
   }
